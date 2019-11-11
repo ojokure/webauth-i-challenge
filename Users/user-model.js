@@ -11,15 +11,16 @@ function find() {
 }
 
 function findById(id) {
-  return db("users")
+  return db("Users")
     .where({ id })
     .first();
 }
 
 function add(user) {
-  db("Users")
-    .insert(user, "id")
-    .then(([id]) => {
-      return findById(id);
-    });
-}
+    return db('users')
+      .insert(user, 'id')
+      .then(ids => {
+        const [id] = ids;
+        return findById(id);
+      });
+  }
