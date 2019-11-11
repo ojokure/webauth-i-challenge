@@ -3,6 +3,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 
+const db = require('./Database/dbConfig')
+
 const server = express();
 
 server.use(helmet());
@@ -14,7 +16,7 @@ server.get("/", (req, res) => {
 })
 
 server.get("/api/register", (req, res) => {
-    
+
 })
 
 
