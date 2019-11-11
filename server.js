@@ -58,4 +58,13 @@ server.post('/api/login', (req, res) => {
       });
   });
 
+  server.get('/api/users', (req, res) => {
+   
+    Users.find()
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => res.send(err));
+  });
+
 module.exports = server;
