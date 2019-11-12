@@ -37,6 +37,7 @@ authRouter.post("/login", (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        req.session.user = user;
         res.status(200).json({ message: `Welcome back ${user.username}!` });
       } else {
         res
@@ -45,8 +46,10 @@ authRouter.post("/login", (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json({
+        message: error.message
+      });
     });
 });
 
-module.exports = authRouter
+module.exports = authRouter;
