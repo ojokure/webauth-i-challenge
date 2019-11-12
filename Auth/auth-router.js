@@ -40,9 +40,7 @@ authRouter.post("/login", (req, res) => {
         req.session.user = user;
         res.status(200).json({ message: `Welcome back ${user.username}!` });
       } else {
-        res
-          .status(401)
-          .json({ message: "You cannot pass" });
+        res.status(401).json({ message: "You cannot pass" });
       }
     })
     .catch(error => {
@@ -52,4 +50,23 @@ authRouter.post("/login", (req, res) => {
     });
 });
 
+authRouter.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy(error => {
+      if (error) {
+        res.status(401).json({
+          message: error
+        });
+      } else {
+        res.json({
+          message: "Hope to see you soon, bye for now "
+        });
+      }
+    });
+  } else {
+    res.status(401).json({
+      message: "You are already logged out"
+    });
+  }
+});
 module.exports = authRouter;
